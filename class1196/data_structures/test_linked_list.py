@@ -1,5 +1,5 @@
 import unittest
-from class1196.data_structures.linked_list import LinkedList
+from class1196.data_structures.linked_list import LinkedList, Node
 
 
 class LinkedListTest(unittest.TestCase):
@@ -11,7 +11,7 @@ class LinkedListTest(unittest.TestCase):
         self.assertEqual(self.test_list.as_list(), l)
 
 
-class LinkedListInsertion(LinkedListTest):
+class LinkedListInsertionTest(LinkedListTest):
     def test_inserting_node_in_the_begining_of_an_empty_list(self) -> None:
         self.test_list.insert_begin(4)
 
@@ -52,7 +52,7 @@ class LinkedListInsertion(LinkedListTest):
         self.assertLinkedListEqual([])
 
 
-class LinkedListRemoval(LinkedListTest):
+class LinkedListRemovalTest(LinkedListTest):
 
     def test_removing_head_from_an_empty_list(self) -> None:
         self.test_list.remove_begin()
@@ -107,10 +107,38 @@ class LinkedListRemoval(LinkedListTest):
     def test_removing_position_from_empty_list(self) -> None:
 
         self.assertLinkedListEqual([])
-        
+
         self.test_list.remove_position(4)
-        
+
         self.assertLinkedListEqual([])
+
+
+class LinkedListMiddleElementTest(LinkedListTest):
+    def test_middle_element_of_an_empty_list(self) -> None:
+        self.assertLinkedListEqual([])
+
+        self.assertIsNone(self.test_list.middle())
+
+    def test_middle_element_of_an_even_list(self) -> None:
+        self.test_list.insert_end(1)
+        self.test_list.insert_end(2)
+        self.test_list.insert_end(3)
+        self.test_list.insert_end(4)
+
+        self.assertLinkedListEqual([1, 2, 3, 4])
+
+        self.assertEqual(self.test_list.middle(), Node(3))
+        
+    def test_middle_element_of_an_odd_list(self) -> None:
+        self.test_list.insert_end(10)
+        self.test_list.insert_end(20)
+        self.test_list.insert_end(300)
+        self.test_list.insert_end(40)
+        self.test_list.insert_end(50)
+
+        self.assertLinkedListEqual([10, 20, 300, 40, 50])
+
+        self.assertEqual(self.test_list.middle(), Node(300))        
 
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 from typing import Optional
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
 class Node:
-    next: Optional["Node"]
+    next: Optional["Node"] = field(compare=False)
     value: object
 
     def __init__(self, value) -> None:
@@ -19,7 +19,7 @@ class LinkedList:
     def __init__(self) -> None:
         self.head = None
 
-    def __find_node_at_position(self, position: int) -> Optional[Node]:        
+    def __find_node_at_position(self, position: int) -> Optional[Node]:
         i = 0
         found = self.head
         while found and i <= position:
@@ -77,6 +77,13 @@ class LinkedList:
         found = self.__find_node_at_position(position - 1)
         if found:
             found.next = (found.next or Node(-1)).next
+
+    def middle(self) -> Optional[Node]:
+        mid, tail = self.head, self.head
+        while mid and tail and tail.next:
+            mid = mid.next
+            tail = tail.next.next
+        return mid
 
     def as_list(self) -> list[object]:
         res = []
