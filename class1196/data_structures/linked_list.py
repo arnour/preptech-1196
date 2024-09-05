@@ -16,8 +16,14 @@ class Node:
 class LinkedList:
     head: Optional[Node]
 
-    def __init__(self) -> None:
+    def __init__(self, nodes: list = []) -> None:
         self.head = None
+        if nodes:
+            self.head = Node(nodes[0])
+            temp = self.head
+            for value in nodes[1:]:
+                temp.next = Node(value)
+                temp = temp.next
 
     def __find_node_at_position(self, position: int) -> Optional[Node]:
         i = 0
@@ -84,6 +90,29 @@ class LinkedList:
             mid = mid.next
             tail = tail.next.next
         return mid
+
+    def reverse(self) -> None:
+        if self.head is None:
+            return
+
+        prev = None
+        cur = self.head
+
+        while cur:
+            # save reference to the next element
+            temp = cur.next
+
+            # change element direction, pointing to previous
+            cur.next = prev
+
+            # next iteration previous should be cur
+            prev = cur
+
+            # next iteration cur should be next
+            cur = temp
+
+        # update head reference
+        self.head = prev
 
     def as_list(self) -> list[object]:
         res = []

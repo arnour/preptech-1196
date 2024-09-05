@@ -128,7 +128,7 @@ class LinkedListMiddleElementTest(LinkedListTest):
         self.assertLinkedListEqual([1, 2, 3, 4])
 
         self.assertEqual(self.test_list.middle(), Node(3))
-        
+
     def test_middle_element_of_an_odd_list(self) -> None:
         self.test_list.insert_end(10)
         self.test_list.insert_end(20)
@@ -138,7 +138,42 @@ class LinkedListMiddleElementTest(LinkedListTest):
 
         self.assertLinkedListEqual([10, 20, 300, 40, 50])
 
-        self.assertEqual(self.test_list.middle(), Node(300))        
+        self.assertEqual(self.test_list.middle(), Node(300))
+
+
+class LinkedListReversalTest(LinkedListTest):
+    def test_reverse_an_empty_list(self) -> None:
+        self.assertLinkedListEqual([])
+
+        self.test_list.reverse()
+
+        self.assertLinkedListEqual([])
+
+        self.assertIsNone(self.test_list.head)
+
+    def test_reverse_a_list_with_one_element(self) -> None:
+        self.test_list.insert_begin(1)
+
+        self.assertLinkedListEqual([1])
+
+        self.test_list.reverse()
+
+        self.assertLinkedListEqual([1])
+
+        self.assertEqual(self.test_list.head, Node(1))
+
+    def test_reverse_a_list(self) -> None:
+        self.test_list.insert_end(1)
+        self.test_list.insert_end(2)
+        self.test_list.insert_end(3)
+
+        self.assertLinkedListEqual([1, 2, 3])
+
+        self.test_list.reverse()
+
+        self.assertLinkedListEqual([3, 2, 1])
+
+        self.assertEqual(self.test_list.head, Node(3))
 
 
 if __name__ == "__main__":
